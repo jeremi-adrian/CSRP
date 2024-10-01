@@ -678,7 +678,7 @@ Author URI: http://bootstrapthemes.co
        margin-top:80px;
    }	
    .bener_overlay{
-       background: rgba(48, 107, 109, 0.65);
+       background: rgba(1, 81, 21, 0.788);
        height: 150px;
    
    }	
@@ -1154,12 +1154,14 @@ Author URI: http://bootstrapthemes.co
    
    /* About Us Page CSS */
    #about_banner{
-       background:url(../img/ab_baner.jpg);
+       background:url(../img/);
        background-size:cover;
+       
    }
    .about_overlay{
-       background:rgba(42, 138, 138, 0.65);
+       background:rgba(4, 75, 156, 0.886);
        width:100%;
+       height: 120px;
    }
    
    .about_banner_text{
