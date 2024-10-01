@@ -1,0 +1,310 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Publicador</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #d3cfcf;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.6rem; /* Ajuste para pantallas más pequeñas */
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 0.9rem; /* Reducir el tamaño en pantallas pequeñas */
+        }
+
+        input[type="text"], input[type="date"], select {
+            width: calc(100% - 20px);
+            padding: 8px; /* Reducido desde 10px */
+            margin-bottom: 15px; /* Reducido desde 20px */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            margin-right: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.85rem; /* Ajuste para mejorar visibilidad en móviles */
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 8px; /* Reducido desde 10px */
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .notes {
+            width: 100%;
+            padding: 8px; /* Reducido desde 10px */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            display: block;
+            width: auto;
+            padding: 8px; /* Reducido desde 10px */
+            background-color: #6FB048;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px; /* Reducido desde 16px */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a9a3a;
+        }
+
+        textarea { 
+            width: 100%;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .container {
+                padding: 9px; /* Reducido desde 20px */
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+            }
+
+            input[type="text"], input[type="date"], select, button {
+                width: auto;
+            }
+
+            table {
+                font-size: 0.8rem; /* Un poco más pequeño para móviles */
+            }
+
+            table thead {
+                display: none; /* Ocultar los encabezados en pantallas pequeñas */
+            }
+
+            table, table tbody, table tr, table td {
+                display:block;
+                width:auto;
+            }
+
+            table tr {
+                margin-bottom: 10px;
+            }
+
+            table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            table td::before {
+                content: attr(data-label); /* Añadir contenido dinámico basado en el atributo data-label */
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 20px);
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+
+        @media (max-width: 400px) {
+            h2 {
+                font-size: 1.4rem;
+            }
+
+            label {
+                font-size: 0.85rem;
+            }
+
+            input[type="text"], input[type="date"], select, button {
+                padding: 6px; /* Aún más compacto para pantallas muy pequeñas */
+                font-size: 0.85rem;
+            }
+
+            table {
+                font-size: 0.75rem; /* Pequeño para ajustarse bien en pantallas muy pequeñas */
+            }
+
+            button {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 9px; /* Reducido desde 20px */
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+            }
+
+            input[type="text"], input[type="date"], select {
+                width: 88%;
+            }
+            button {
+                width: auto;
+            }
+
+            table {
+                font-size: 0.8rem; /* Un poco más pequeño para móviles */
+            }
+
+            table thead {
+                display: none; /* Ocultar los encabezados en pantallas pequeñas */
+            }
+
+            table, table tbody, table tr, table td {
+                display:block;
+                width:auto;
+            }
+
+            table tr {
+                margin-bottom: 10px;
+            }
+
+            table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            table td::before {
+                content: attr(data-label); /* Añadir contenido dinámico basado en el atributo data-label */
+                position: absolute;
+                left: 10px;
+                width: calc(50% - 20px);
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Informe de horas</h2>
+
+    <form>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" placeholder="Nombre completo" oninput="validateTextInput(this)">
+
+        <label for="name">Congregación:</label>
+        <input type="text" id="name" name="name" placeholder="Congregación" oninput="validateTextInput(this)">
+
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_regular"> Precursor Regular</label>
+            <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_auxiliar"> Precursor Auxiliar</label>
+            <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_auxiliar"> Solo Publicador</label>
+            
+        </div>
+        <h5 style="color: rgb(111, 111, 111);"><i><span class="bolded">*</span> En caso de ser solo publicador selecionar las casillas y llenar la información correspondiente,
+        para mas información contactar a su capitán de grupo.</i></h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>Participación en el ministerio</th>
+                    <th>Publicaciones</th>
+                    <th>Videos</th>
+                    <th>Horas</th>
+                    <th>Revisitas</th>
+                    <th>Cursos Biblicos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Participación en el ministerio"><input type="checkbox" name="sept_participacion"></td>
+                    <td data-label="Publicaciones"><input type="text" name="info_Pub" oninput="validateNumberInput(this)"></td>
+                    <td data-label="Videos"><input type="text" name="info_videos" oninput="validateNumberInput(this)"></td>
+                    <td data-label="Horas"><input type="text" name="sept_Horas" oninput="validateNumberInput(this)"></td>
+                    <td data-label="Revisitas"><input type="text" name="info_Rev" oninput="validateNumberInput(this)"></td>
+                    <td data-label="Cursos Biblicos"><input type="text" name="sept_CB" oninput="validateNumberInput(this)"></td>
+                </tr>
+                <!-- Añadir más filas de meses -->
+            </tbody>
+            
+        </table>
+       
+        <textarea type="text" id="comentarios" rows="4" name="coment" 
+        placeholder="Comentarios"></textarea>
+
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+<script>
+    function validateNumberInput(input) {
+        // Remover cualquier carácter que no sea un número
+        input.value = input.value.replace(/[^0-9]/g, '');
+    }
+    </script>
+
+<script>
+    function validateTextInput(input) {
+        // Remover cualquier carácter que no sea una letra o espacio
+        input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+    }
+    </script>
+
+<script>
+    function onlyOne(checkbox) {
+        const checkboxes = document.getElementsByName('role');
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false; // Desmarcar los demás checkboxes
+        });
+    }
+    </script>
+</body>
+</html>

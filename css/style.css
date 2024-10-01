@@ -667,7 +667,7 @@ a.btn{
 }
 
 #bener{
-    background:url(../img/benner_bg.jpg) no-repeat;
+    background:url(../img/) no-repeat;
 	background-size:cover;
 }
 
@@ -679,7 +679,7 @@ a.btn{
 }	
 .bener_overlay{
 	background: rgba(48, 107, 109, 0.65);
-    height: 660px;
+    height: 150px;
 
 }	
 .bener_content h2{
@@ -1064,7 +1064,7 @@ a.s_f_2{
     background:#3B5998;
 }
 a.s_f_3{
-    background:#3F729B;
+    background:#047516;
 }
 a.s_f_4{
     background:#EC6197;	
@@ -1158,7 +1158,7 @@ a.get_stared_btn{
     background-size:cover;
 }
 .about_overlay{
-    background:rgba(47, 94, 94, 0.65);
+    background:rgba(42, 138, 138, 0.65);
     width:100%;
 }
 
