@@ -50,10 +50,10 @@
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand our_logo" href="#">Registro de horas</a>
+                                <a class="navbar-brand our_logo" href="#">REGISTRO DE HORAS</a>
                                 <div class="call_us">
                                     
-                                    Congregación - Centro Sierra Papacal
+                                    
                                 </div>	  
                             </div>
 
@@ -108,18 +108,19 @@
 
                             <div class="col-md-4 col-sm-4">
                                 <div class="single_features">
-                                    <a href=""> 
-                                    <img src="img/archivos.png" alt="" />
-                                    <h2>MESES ANTERIORES</h2>
-                                    <p></p>
-                                </a>
+                                    <!-- Botón que ejecuta la función de copiar -->
+                                    <a href="javascript:void(0);" onclick="copyToClipboard()">
+                                        <img src="img/google-forms.png" alt="Copiar Formulario" />
+                                        <h2>COPIAR FORMULARIO</h2>
+                                        <p></p>
+                                    </a>
                                 </div>
                             </div>
 
                             <div class="col-md-4 col-sm-4">
                                 <div class="single_features">
                                     <a href=""> 
-                                    <img src="img/export.png" alt="" />
+                                    <img src="img/export-file2.png" alt="" />
                                     <h2>EXPORTAR</h2>
                                     <p></p>
                                 </a>
@@ -191,6 +192,29 @@
                 </div><!-- End footer bottom -->
             </div>
         </footer>
+        <script>
+            function copyToClipboard() {
+                // Crear un elemento temporal
+                const tempInput = document.createElement("input");
+                tempInput.style.position = "absolute";
+                tempInput.style.left = "-9999px";
+                
+                // Establecer el valor del input con la URL de formulario.html
+                tempInput.value = window.location.origin + "/formulario.html";
+                document.body.appendChild(tempInput);
+                
+                // Seleccionar el texto y copiarlo
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999); // Para dispositivos móviles
+                document.execCommand("copy");
+                
+                // Remover el input temporal
+                document.body.removeChild(tempInput);
+        
+                // Avisar al usuario que la URL ha sido copiada
+                alert("La URL del formulario ha sido copiada al portapapeles.");
+            }
+        </script>
 
 
         <script src="js/vendor/jquery-1.11.2.min.js"></script>
