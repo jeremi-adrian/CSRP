@@ -289,56 +289,52 @@
 </head>
 <body>
 
-<div class="container">
-    <h2>Informe de horas</h2>
-
-    <form>
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" placeholder="Nombre completo" oninput="validateTextInput(this)">
-
-        <label for="name">Congregación:</label>
-        <input type="text" id="name" name="name" placeholder="Congregación" oninput="validateTextInput(this)">
-
-        <div class="checkbox-group">
-            <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_regular"> Precursor Regular</label>
-            <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_auxiliar"> Precursor Auxiliar</label>
-            <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_auxiliar"> Solo Publicador</label>
-            
-        </div>
-        <h5 style="color: rgb(111, 111, 111);"><i><span class="bolded">*</span> En caso de ser solo publicador selecionar las casillas y llenar la información correspondiente,
-        para mas información contactar a su capitán de grupo.</i></h5>
-        <table>
-            <thead>
-                <tr>
-                    <th>Participación en el ministerio</th>
-                    <th>Publicaciones</th>
-                    <th>Videos</th>
-                    <th>Horas</th>
-                    <th>Revisitas</th>
-                    <th>Cursos Biblicos</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                <tr>
-                    <td data-label="Participación en el ministerio"><input type="checkbox" name="sept_participacion"></td>
-                    <td data-label="Publicaciones"><input type="text" name="info_Pub" oninput="validateNumberInput(this)"></td>
-                    <td data-label="Videos"><input type="text" name="info_videos" oninput="validateNumberInput(this)"></td>
-                    <td data-label="Horas"><input type="text" name="sept_Horas" oninput="validateNumberInput(this)"></td>
-                    <td data-label="Revisitas"><input type="text" name="info_Rev" oninput="validateNumberInput(this)"></td>
-                    <td data-label="Cursos Biblicos"><input type="text" name="sept_CB" oninput="validateNumberInput(this)"></td>
-                </tr>
-                <!-- Añadir más filas de meses -->
-            </tbody>
-            
-        </table>
-       
-        <textarea type="text" id="comentarios" rows="4" name="coment" 
-        placeholder="Comentarios"></textarea>
-
-        <button type="submit">Enviar</button>
-    </form>
-</div>
+    <div class="container">
+        <h2>Informe de horas</h2>
+    
+        <form id="myForm">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" placeholder="Nombre completo" oninput="validateTextInput(this)">
+        
+            <label for="congregacion">Congregación:</label>
+            <input type="text" id="congregacion" name="congregacion" placeholder="Congregación" oninput="validateTextInput(this)">
+        
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_regular"> Precursor Regular</label>
+                <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="precursor_auxiliar"> Precursor Auxiliar</label>
+                <label><input type="checkbox" name="role" onclick="onlyOne(this)" value="solo_publicador"> Solo Publicador</label>
+            </div>
+        
+            <h5 style="color: rgb(111, 111, 111);"><i><span class="bolded">*</span> En caso de ser solo publicador seleccionar las casillas y llenar la información correspondiente, para más información contactar a su capitán de grupo.</i></h5>
+        
+            <table>
+                <thead>
+                    <tr>
+                        <th>Participación en el ministerio</th>
+                        <th>Publicaciones</th>
+                        <th>Videos</th>
+                        <th>Horas</th>
+                        <th>Revisitas</th>
+                        <th>Cursos Bíblicos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-label="Participación en el ministerio"><input type="checkbox" name="sept_participacion"></td>
+                        <td data-label="Publicaciones"><input type="text" name="info_Pub" oninput="validateNumberInput(this)"></td>
+                        <td data-label="Videos"><input type="text" name="info_videos" oninput="validateNumberInput(this)"></td>
+                        <td data-label="Horas"><input type="text" name="sept_Horas" oninput="validateNumberInput(this)"></td>
+                        <td data-label="Revisitas"><input type="text" name="info_Rev" oninput="validateNumberInput(this)"></td>
+                        <td data-label="Cursos Bíblicos"><input type="text" name="sept_CB" oninput="validateNumberInput(this)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <textarea id="comentarios" rows="4" name="coment" placeholder="Comentarios"></textarea>
+        
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
 <script>
     function validateNumberInput(input) {
         // Remover cualquier carácter que no sea un número
@@ -361,5 +357,65 @@
         });
     }
     </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('myForm'); // Asegúrate de que este ID coincide con tu formulario
+    
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Evita el envío normal del formulario
+    
+                // Obtener los valores del formulario
+                const name = document.getElementById('name').value;
+                const congregacion = document.getElementById('congregacion').value;
+                const comentarios = document.getElementById('comentarios').value;
+    
+                // Obtener el valor del checkbox seleccionado para "role"
+                const roleCheckboxes = document.querySelectorAll('input[name="role"]:checked');
+                const roles = Array.from(roleCheckboxes).map(checkbox => checkbox.value); // Crea un array con los valores seleccionados
+    
+                // Obtener los valores de la tabla
+                const participation = document.querySelector('input[name="sept_participacion"]').checked;
+                const infoPub = document.querySelector('input[name="info_Pub"]').value;
+                const infoVideos = document.querySelector('input[name="info_videos"]').value;
+                const infoHoras = document.querySelector('input[name="sept_Horas"]').value;
+                const infoRev = document.querySelector('input[name="info_Rev"]').value;
+                const infoCB = document.querySelector('input[name="sept_CB"]').value;
+    
+                // Almacenar información en localStorage
+                const participantInfo = {
+                    name: name,
+                    congregacion: congregacion,
+                    comments: comentarios,
+                    roles: roles.join(', '),  // Convierte el array de roles a un string
+                    participation: participation,
+                    publications: infoPub,
+                    videos: infoVideos,
+                    hours: infoHoras,
+                    revisits: infoRev,
+                    courses: infoCB
+                };
+    
+                // Obtener la lista de participantes del localStorage
+                const participantInfoList = JSON.parse(localStorage.getItem('participantInfoList')) || [];
+                participantInfoList.push(participantInfo); // Agregar nuevo participante a la lista
+                localStorage.setItem('participantInfoList', JSON.stringify(participantInfoList)); // Guardar la lista actualizada
+    
+                // Restablecer el formulario
+                form.reset();
+    
+                // Mensaje de confirmación (opcional)
+                alert("Formulario enviado con éxito.");
+            });
+        });
+    </script>
+    
+    
+    
+        
+        
+    
+        
+
 </body>
 </html>
