@@ -60,8 +60,8 @@
 						  
 						  <ul class="nav navbar-nav navbar-right">
 							<li><a href="index.html">Inicio</a></li>
-                            <li><a href="index.html">Buscar</a></li>
-                            <li><a href="#" style="background:#6FB048;
+                            <li><a href="">Buscar</a></li>
+                            <li><a href="index.html" style="background:#6FB048;
                                 color:#fff;border-radius:2px;padding:5px 10px;
                                 margin-top:10px;">Registrate</a></li>
 							
@@ -109,13 +109,38 @@
 					<div class="row">
 						<div class="text-center">
 							<div class="col-md-4 col-sm-4 col-xs-12">
-								<div class="single_about_text">
-									<img src="img/open-folder.png" alt="" />
-									<h4>sierra papacal</h4>
-									
+								<div class="single_about_text button-like" id="infoButton">
+									<img src="img/open-folder.png" alt="Carpeta" />
+									<h4>Sierra Papacal</h4>
+								</div>
+							</div>
+
+							<div id="infoModal" class="modal">
+								<div class="modal-content">
+									<span class="close">&times;</span>
+									<h2>Respuestas del Formulario</h2>
+									<div id="responsesContainer">
+										<!-- Aquí se mostrarán los nombres de los participantes -->
+									</div>
+									<button id="clearResponsesButton" style="background-color: brown; color: #ffffff;">Borrar Respuestas</button> <!-- Botón para borrar respuestas -->
+									<button id="exportButton" style="background-color: green; color: #ffffff;">Exportar</button> <!-- Botón para exportar -->
 								</div>
 							</div>
 							
+							
+							<div id="detailsModal" class="modal">
+								<div class="modal-content">
+									<span class="close">&times;</span>
+									<h2>Detalles del Formulario</h2>
+									<div id="detailsContainer">
+										<!-- Aquí se mostrarán los detalles completos, sin el nombre -->
+									</div>
+									<button id="backToNamesButton">Regresar</button> <!-- Botón de regreso -->
+								</div>
+							</div>
+							
+							
+
 							<div class="col-md-4 col-sm-4 col-xs-12">
 								<div class="single_about_text">
 									<img src="img/open-folder.png" alt="" />
@@ -173,11 +198,152 @@
             </div>
         </footer>
 
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				const modal = document.getElementById('infoModal');
+				const closeButton = modal.querySelector('.close');
+				const responsesContainer = document.getElementById('responsesContainer');
+				const infoButton = document.getElementById('infoButton');
+				const clearResponsesButton = document.getElementById('clearResponsesButton'); // Botón de borrar respuestas
+				const exportButton = document.getElementById('exportButton'); // Botón de exportar
+		
+				// Obtener la lista de participantes del localStorage
+				const participantInfoList = JSON.parse(localStorage.getItem('participantInfoList')) || [];
+		
+				// Verificar si hay información de participantes
+				if (participantInfoList.length > 0) {
+					participantInfoList.forEach(participantInfo => {
+						const nameElement = document.createElement('div');
+						nameElement.textContent = participantInfo.name;
+						nameElement.style.cursor = 'pointer';
+		
+						// Agregar el evento para mostrar más información al hacer clic
+						nameElement.addEventListener('click', function() {
+							showParticipantDetails(participantInfo); // Mostrar detalles al hacer clic
+						});
+		
+						// Agregar el nombre del participante al contenedor
+						responsesContainer.appendChild(nameElement);
+					});
+				} else {
+					responsesContainer.textContent = 'No hay información disponible.'; // Mensaje si no hay información
+				}
+		
+				// Hacer que el infoButton abra el modal
+				infoButton.addEventListener('click', function() {
+					modal.style.display = "block"; // Muestra el modal
+				});
+		
+				// Cerrar el modal al hacer clic en el botón de cerrar
+				closeButton.addEventListener('click', function() {
+					modal.style.display = "none"; // Oculta el modal
+				});
+		
+				// Cerrar el modal al hacer clic fuera de él
+				window.addEventListener('click', function(event) {
+					if (event.target === modal) {
+						modal.style.display = "none"; // Oculta el modal
+					}
+				});
+		
+				// Lógica para borrar respuestas
+				clearResponsesButton.addEventListener('click', function() {
+					// Borrar la lista de participantes del localStorage
+					localStorage.removeItem('participantInfoList');
+					// Limpiar el contenedor de respuestas
+					responsesContainer.innerHTML = 'No hay información disponible.'; // Mensaje si no hay información
+				});
+		
+				// Lógica para exportar respuestas
+				exportButton.addEventListener('click', function() {
+					if (participantInfoList.length === 0) {
+						alert("No hay datos para exportar.");
+						return;
+					}
+		
+					// Crear un libro de trabajo
+					const wb = XLSX.utils.book_new();
+		
+					// Crear una hoja de datos
+					const data = participantInfoList.map(participant => ({
+						Nombre: participant.name,
+						Roles: Array.isArray(participant.roles) ? participant.roles.join(', ') : participant.roles, // Verifica si es un array
+						Congregación: participant.congregacion,
+						Participación: participant.participation ? 'Sí' : 'No',
+						Publicaciones: participant.publications,
+						Videos: participant.videos,
+						Horas: participant.hours,
+						Revisitas: participant.revisits,
+						Cursos: participant.courses,
+						Comentarios: participant.comments
+						
+					}));
+		
+					const ws = XLSX.utils.json_to_sheet(data);
+		
+					// Agregar la hoja al libro de trabajo
+					XLSX.utils.book_append_sheet(wb, ws, "Respuestas");
+		
+					// Descargar el archivo
+					XLSX.writeFile(wb, "respuestas_formulario.xlsx");
+				});
+			});
+		
+			function showParticipantDetails(participantInfo) {
+				const detailModal = document.createElement('div'); // Crear un nuevo modal
+				detailModal.className = 'modal';
+				detailModal.innerHTML = `
+					<div class="modal-content">
+						<span class="close">&times;</span>
+						<h2>Detalles del Participante</h2>
+						<p><strong>Congregación:</strong> ${participantInfo.congregacion}</p>
+						<p><strong>Comentarios:</strong> ${participantInfo.comments}</p>
+						<p><strong>Roles:</strong> ${Array.isArray(participantInfo.roles) ? participantInfo.roles.join(', ') : participantInfo.roles}</p> <!-- Verifica si es un array -->
+						<p><strong>Participación en el ministerio:</strong> ${participantInfo.participation ? 'Sí' : 'No'}</p>
+						<p><strong>Publicaciones:</strong> ${participantInfo.publications}</p>
+						<p><strong>Videos:</strong> ${participantInfo.videos}</p>
+						<p><strong>Horas:</strong> ${participantInfo.hours}</p>
+						<p><strong>Revisitas:</strong> ${participantInfo.revisits}</p>
+						<p><strong>Cursos Bíblicos:</strong> ${participantInfo.courses}</p>
+						<button id="backButton">Regresar</button>
+					</div>
+				`;
+		
+				document.body.appendChild(detailModal); // Agregar el modal a la página
+		
+				const closeButton = detailModal.querySelector('.close');
+				closeButton.addEventListener('click', function() {
+					document.body.removeChild(detailModal); // Eliminar el modal de detalles
+				});
+		
+				const backButton = detailModal.querySelector('#backButton');
+				backButton.addEventListener('click', function() {
+					document.body.removeChild(detailModal); // Regresar al modal de respuestas
+				});
+		
+				detailModal.style.display = "block"; // Mostrar el modal de detalles
+			}
+		</script>
+		
+		
+		
+		
+		
+		
+			
+			
+		
+
 
         <script src="js/vendor/jquery-1.11.2.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
+		<!-- Incluir la biblioteca de xlsx -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+		
+
     </body>
 </html>	
