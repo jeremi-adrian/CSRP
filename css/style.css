@@ -1349,6 +1349,26 @@ button:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Sombra al pasar el mouse */
 }
 
+.dots::after {
+    content: '';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '';
+    }
+    40% {
+        content: '.';
+    }
+    60% {
+        content: '..';
+    }
+    80%, 100% {
+        content: '...';
+    }
+}
+
 
 
    

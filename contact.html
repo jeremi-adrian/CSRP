@@ -78,9 +78,9 @@
 
         <!-- Google Maps Sections -->
 		<section id="google_map" class="">
-			<div class="container-fullwidth">
+			<!--<div class="container-fullwidth">
 				<div style="width:100%;height:600px;" class="ourmaps"></div>
-			</div>
+			</div>-->
 		</section>
 		
 		<!-- Contact form -->
@@ -89,159 +89,77 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<div class="message_top_text text-center">
-							<h2>Get In Touch With Us</h2>
-							<p class="description_p">We are here to help. Want to learn more about our services?
-Please get in touch, we'd love to hear from you!</p>
+							<h2>Contactanos desde la pagina</h2>
+							
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
 					<div class="messsage_contant">
-						<div class="col-md-7 col-sm-7">
-							<div class="single_message_left">
-								<form action="#" id="formid">
-										<!--<div class="col-lg-8 col-md-8 col-sm-10 col-lg-offset-2 col-md-offset-2 col-sm-offset-1">-->
-										  
-										 <div class="form-group">
-											<input type="text" class="form-control" name="name" placeholder="first name" required="">
-										  </div>
-										
-										  <div class="form-group">
-											<input type="email" class="form-control" name="email" placeholder="Email" required="">
-										  </div>
-										
-										  <div class="form-group">
-											<input type="text" class="form-control" placeholder="Subject">
-										  </div> <!-- end of form-group -->
-
-										  <div class="form-group">
-											<textarea class="form-control" name="message" rows="8" placeholder="Message"></textarea>
-										  </div>
-
-										  <div class="center-content">
-											<input type="submit" value="Submit" class="btn btn-primary">
-										  </div>
-										<!--</div>--> 
-								</form>
-							</div>
-						</div>
+						<div class="">
+                            <div class="single_message_left">
+                                <form action="https://formspree.io/f/tu_form_id" method="post">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="name" placeholder="First name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="message" rows="8" placeholder="Message" required></textarea>
+                                    </div>
+                                    
+                                    <!-- Agregamos el campo oculto para la redirección después del envío -->
+                                    <input type="hidden" name="_next" value="https://tusitio.com/gracias.html">
+                        
+                                    <!-- Agregamos un campo oculto para evitar que aparezca CAPTCHA en envíos múltiples -->
+                                    <input type="hidden" name="_captcha" value="false">
+                        
+                                    <div class="center-content">
+                                        <input type="submit" value="Submit" class="btn btn-primary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
 						
-						<div class="col-md-5 col-sm-5">
-							<div class="single_message_right">
-								<h4>Headquarter</h4>
-								<p>
-									<i class="fa fa-map-marker"></i> 
-									610 Overlook Circle
-									<span>Suite 323</span>
-									<span>Kalamazoo, MI 49009</span>
-								</p>
-								
-								<p><i class="fa fa-phone"></i>+62 202 555 0117</p>
-								<p><i class="fa fa-envelope"></i>hi@wapik.com</p>
-								<p></p>
-							</div>
-						</div>
+						
 					</div> <!-- End of messsage contant-->
 				</div>
 			</div>
 		</section>
 
 
-        <section id="like">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <div class="single_like">
-                            <h2>Do You Like Wapik? Download it Now</h2>
-                            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-sm-6">
-                        <div class="single_like_btn">
-                            <a href="" class="btn btn-primary btn-larg">download now! - FREE forever</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
 
 
         <!--Footer-->
         <footer id="footer">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="single_footer">
-                            <h2>wapik</h2>
-                            <ul>
-                                <li><a href="">@: hi@wapik.com</a></li>
-                                <li><a href="">p: +62 202 555 0117</a></li>
-                                <li><a href="">a: 610 Overlook Circle Suite 323</a></li>
-                                <li><a href="">Kalamazoo, MI 49009</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="single_footer">
-                            <h2>Company</h2>
-                            <ul>
-                                <li><a href="">Home</a></li>
-                                <li><a href="">About Us</a></li>
-                                <li><a href="">Pricing</a></li>
-                                <li><a href="">Contact Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="single_footer">
-                            <h2>Others</h2>
-                            <ul>
-                                <li><a href="">Help & Support</a></li>
-                                <li><a href="">Privacy Policy</a></li>
-                                <li><a href="">Terms</a></li>
-                                <li><a href="">Sitemap</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="single_footer">
-                            <h2>Newsletter</h2>
-                            <p>Subscribe to our newsletter and get all the cool news</p>
-
-                            <form class="navbar-form navbar-left email_sender" role="search">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                </div>
-                                <button type="submit" ><i class="fa fa-paper-plane-o"></i></button>
-                            </form>
-
-                        </div>
-
-                    </div>
-                </div>
+			
+                
 
                 <div class="footer_bottom">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="single_footer_bottom">
-                            <p>Made with <i class="fa fa-heart"></i> by <a href="http://bootstrapthemes.co">Bootstrap Themes</a>2016. All Rights Reserved</p>
-                        </div>
-                    </div>
+                    <div class="row">
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="single_footer_bottom">
+							   <p class="wow zoomIn" data-wow-duration="1s">Uso solamente </i>para las congraciónes</a> / Creación (2024). </p>
+							</div>
+						</div>
 
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div class="single_footer_bottom pull-right">
-                            <ul>
-                                <li><a href="" class="s_f_1"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="" class="s_f_2"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="" class="s_f_3"><i class="fa fa-instagram"></i></a></li>
-                                <li><a href="" class="s_f_4"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="" class="s_f_5"><i class="fa fa-github"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
+						<div class="col-md-6 col-sm-6 col-xs-12">
+							<div class="single_footer_bottom pull-right">
+								<ul>
+									<li><a href="https://walink.co/de04c4" class="s_f_3" style="color: #f9f9f9;"><i class="fa fa-whatsapp"></i></a></li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
                 </div><!-- End footer bottom -->
             </div>
         </footer>
