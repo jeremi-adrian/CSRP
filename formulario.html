@@ -382,7 +382,7 @@
                 const infoRev = document.querySelector('input[name="info_Rev"]').value;
                 const infoCB = document.querySelector('input[name="sept_CB"]').value;
     
-                // Almacenar información en localStorage
+                // Almacenar información en un objeto
                 const participantInfo = {
                     name: name,
                     congregacion: congregacion,
@@ -396,19 +396,29 @@
                     courses: infoCB
                 };
     
-                // Obtener la lista de participantes del localStorage
-                const participantInfoList = JSON.parse(localStorage.getItem('participantInfoList')) || [];
-                participantInfoList.push(participantInfo); // Agregar nuevo participante a la lista
-                localStorage.setItem('participantInfoList', JSON.stringify(participantInfoList)); // Guardar la lista actualizada
+                // Enviar información a Google Sheets a través de Google Apps Script
+                fetch('https://script.google.com/macros/s/AKfycbxUOonDudWjx0cDE7pC96Mh8spGb1YDUg3R5BnlTBLE5odoYzzFIDDwL1qwqd6WhEs/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors', // Cambia a no-cors solo para pruebas
+                    body: JSON.stringify(participantInfo)
+                })
+                .then(response => {
+                    // No podrás acceder a la respuesta si usas no-cors
+                    console.log(response);
+                    // Mensaje de confirmación (opcional)
+                    alert("Formulario enviado con éxito.");
+                })
+                .catch(error => console.error('Error:', error));
     
                 // Restablecer el formulario
                 form.reset();
-    
-                // Mensaje de confirmación (opcional)
-                alert("Formulario enviado con éxito.");
             });
         });
     </script>
+    
     
     
     

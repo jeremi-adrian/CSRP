@@ -211,11 +211,38 @@
 				const clearResponsesButton = document.getElementById('clearResponsesButton'); // Botón de borrar respuestas
 				const exportButton = document.getElementById('exportButton'); // Botón de exportar
 		
-				// Obtener la lista de participantes del localStorage
-				const participantInfoList = JSON.parse(localStorage.getItem('participantInfoList')) || [];
+				let participantInfoList = []; // Lista para almacenar los participantes
 		
-				// Verificar si hay información de participantes
-				if (participantInfoList.length > 0) {
+				// Obtener datos desde Google Sheets
+				fetchGoogleSheetData();
+		
+				// Función para obtener datos desde Google Sheets
+				function fetchGoogleSheetData() {
+					fetch('https://script.google.com/macros/s/AKfycbxUOonDudWjx0cDE7pC96Mh8spGb1YDUg3R5BnlTBLE5odoYzzFIDDwL1qwqd6WhEs/exec', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						mode: 'cors', // Cambia a no-cors solo para pruebas
+						body: JSON.stringify({}) // Envía un objeto vacío o lo que necesites
+					})
+					.then(response => {
+						// No podrás acceder a la respuesta si usas no-cors
+						console.log(response);
+						// Si el modo no-cors es necesario, tendrás que manejarlo de otra manera para mostrar los datos
+						// Aquí es donde deberías manejar la respuesta correctamente
+					})
+					.catch(error => console.error('Error:', error));
+				}
+		
+				// Lógica para mostrar los participantes
+				function displayParticipants() {
+					responsesContainer.innerHTML = ''; // Limpiar el contenedor existente
+					if (participantInfoList.length === 0) {
+						responsesContainer.innerHTML = 'No hay información disponible.';
+						return;
+					}
+		
 					participantInfoList.forEach(participantInfo => {
 						const nameElement = document.createElement('div');
 						nameElement.textContent = participantInfo.name;
@@ -229,8 +256,6 @@
 						// Agregar el nombre del participante al contenedor
 						responsesContainer.appendChild(nameElement);
 					});
-				} else {
-					responsesContainer.textContent = 'No hay información disponible.'; // Mensaje si no hay información
 				}
 		
 				// Hacer que el infoButton abra el modal
@@ -252,8 +277,8 @@
 		
 				// Lógica para borrar respuestas
 				clearResponsesButton.addEventListener('click', function() {
-					// Borrar la lista de participantes del localStorage
-					localStorage.removeItem('participantInfoList');
+					// Borrar la lista de participantes
+					participantInfoList = [];
 					// Limpiar el contenedor de respuestas
 					responsesContainer.innerHTML = 'No hay información disponible.'; // Mensaje si no hay información
 				});
@@ -271,7 +296,7 @@
 					// Crear una hoja de datos
 					const data = participantInfoList.map(participant => ({
 						Nombre: participant.name,
-						Roles: Array.isArray(participant.roles) ? participant.roles.join(', ') : participant.roles, // Verifica si es un array
+						Roles: Array.isArray(participant.roles) ? participant.roles.join(', ') : participant.roles,
 						Congregación: participant.congregacion,
 						Participación: participant.participation ? 'Sí' : 'No',
 						Publicaciones: participant.publications,
@@ -280,15 +305,10 @@
 						Revisitas: participant.revisits,
 						Cursos: participant.courses,
 						Comentarios: participant.comments
-						
 					}));
 		
 					const ws = XLSX.utils.json_to_sheet(data);
-		
-					// Agregar la hoja al libro de trabajo
 					XLSX.utils.book_append_sheet(wb, ws, "Respuestas");
-		
-					// Descargar el archivo
 					XLSX.writeFile(wb, "respuestas_formulario.xlsx");
 				});
 			});
@@ -302,7 +322,7 @@
 						<h2>Detalles del Participante</h2>
 						<p><strong>Congregación:</strong> ${participantInfo.congregacion}</p>
 						<p><strong>Comentarios:</strong> ${participantInfo.comments}</p>
-						<p><strong>Roles:</strong> ${Array.isArray(participantInfo.roles) ? participantInfo.roles.join(', ') : participantInfo.roles}</p> <!-- Verifica si es un array -->
+						<p><strong>Roles:</strong> ${Array.isArray(participantInfo.roles) ? participantInfo.roles.join(', ') : participantInfo.roles}</p>
 						<p><strong>Participación en el ministerio:</strong> ${participantInfo.participation ? 'Sí' : 'No'}</p>
 						<p><strong>Publicaciones:</strong> ${participantInfo.publications}</p>
 						<p><strong>Videos:</strong> ${participantInfo.videos}</p>
@@ -328,6 +348,7 @@
 				detailModal.style.display = "block"; // Mostrar el modal de detalles
 			}
 		</script>
+		
 		
 		
 		
